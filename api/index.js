@@ -6,7 +6,7 @@ require('dotenv').config();
 require('../src/helpers/db');
 
 app.use(express.json({ strict: false }));
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: process.env.FRONTEND }));
 
 const User = require('../src/routes/user');
 const Stylist = require('../src/routes/stylist');
@@ -34,9 +34,6 @@ app.use('/admin', Admin);
 app.get('/', (req, res) => {
     res.send('Hairgame server active');
 });
-app.post("/test", (req, res) => {
-    console.log("Received Data:", req.body); // Debugging
-    res.json({ message: "POST request received", data: req.body });
-  });
+
 export default app; //for vercel
 // app.listen(5000, () => console.log('Hairgame server running'));
