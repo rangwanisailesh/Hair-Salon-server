@@ -6,7 +6,14 @@ require('dotenv').config();
 require('../src/helpers/db');
 
 app.use(express.json({ strict: false }));
-app.use(cors({ origin: process.env.FRONTEND }));
+const allowedOrigins = ["https://hair-salon-appointment.vercel.app"];
+app.use(cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+app.options("*", cors());
 
 const User = require('../src/routes/user');
 const Stylist = require('../src/routes/stylist');
